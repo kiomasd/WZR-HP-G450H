@@ -29,6 +29,7 @@ arp -s 192.168.11.1 02-aa-bb-cc-dd-23
 arp -a
 
 netsh interface ipv4 del neighbors 25 192.168.11.1 
+(netsh interface ipv4 add neighbors 25 192.168.11.1 00-03-7f-09-0b-ad)
 netsh interface ipv4 add neighbors 25 192.168.11.1 02-aa-bb-cc-dd-23
 
 tftpd64失敗 不知為何
@@ -40,7 +41,7 @@ tftp -i 192.168.11.1 put D:\Desktop\G450_FW\openwrt-ar71xx-generic-wzr-hp-g450h-
 X-WRR預設帳密 root/admin
 arp -d
 ---防火牆會擋
-
+官方DD-WRT預設帳密為root/admin (若有改WEB密碼則會變root/<web密碼>)
 
 mtd erase kernel
 非官方WRT命令列下 刪除現有open-wrt系統BF060000 將只能用TFTP燒錄
@@ -107,7 +108,13 @@ https://github.com/musashino205/firmware-wintools
 firmware-wintools buffalo-enc -i <input file> -o <output file> -d [-k <key>] [-O <offset>] [-l]
 (成功)firmware-wintools buffalo-enc -i wzrhpg450h-pro-v24sp2-20025a.enc -o wzrhpg450h-pro-v24sp2-20025a.dec -d -O 0xd0
 (成功)firmware-wintools buffalo-enc -i wzrhpg450h-pro-v24sp2-20025a.enc -o wzrhpg450h-pro-v24sp2-20025a.dec -d
+firmware-wintools buffalo-enc -i wzr_hp_g450h-dd-wrt-webupgrade-MULTI.bin -o wzr_hp_g450h-dd-wrt-webupgrade-MULTI.dec -d -O 0xd0
+firmware-wintools buffalo-enc -i wzrhpg450h-186 -o wzrhpg450h-186.dec -d
+firmware-wintools buffalo-enc -i wzrhpg450h-pro-r30360.enc -o wzrhpg450h-pro-r30360.dec -d
 
-(錯誤，WEB版韌體不可用TFTP方式燒)tftp -i 192.168.11.1 put D:\Desktop\G450_FW\wzrhpg450h-pro-v24sp2-20025a\wzrhpg450h-pro-v24sp2-20025a.dec
+(錯誤TTL版不可用TFTP版燒)tftp -i 192.168.11.1 put D:\Desktop\G450_FW\wzrhpg450h-pro-v24sp2-20025a\wzrhpg450h-pro-v24sp2-20025a.dec
 
 要用OpenWrt內建TTL燒錄 官方解密後TTL 
+
+
+https://dd-wrt.com/support/other-downloads/?path=betas%2F2026%2F03-31-2026-r64210%2F
