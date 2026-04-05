@@ -1,0 +1,113 @@
+
+https://openwrt.org/toh/buffalo/wzr-hp-g450h
+https://www.right.com.cn/forum/thread-142155-1-1.html
+http://buffalo.jp/support_ap/support/products/wzr_hp_g450h.html
+
+TFTP TTL WEB 三者韌體編碼方式都不同 要確認是哪種編碼
+檔名有tftp是加密+TFTP更新 # Airstation開頭 32(0x20)檔頭+加密機械碼
+檔名有sysupgrade是解密+TTL更新 無檔頭+解密機械碼
+檔名有WEB是加密+WEB更新 BGN開頭 208(0xD0)檔頭+加密機械碼
+
+官方內建或DDWrt WEB IP是192.168.11.1
+OpenWrt WEB IP是192.168.1.1
+
+openwrt-25.12.0-ath79-generic-buffalo_wzr-hp-g450h-squashfs-sysupgrade.bin
+
+TFTP方法
+tftpboot 81F00000 XXX.bin (網路方法失敗)
+
+TTL方法
+先確認bin檔案權限 全開
+loady(用TeraTerm的YMODEM上傳)(6MB需要10分鐘)
+erase BF060000 BEFFFFFF (不到1分鐘) 
+cp.b 81F00000 BF060000 006C0128 (006C0128為FW大小自行填入) 0157F0FC
+bootm BF060000
+
+netsh interface ipv4 show interfaces
+
+arp -s 192.168.11.1 02-aa-bb-cc-dd-23
+arp -a
+
+netsh interface ipv4 del neighbors 25 192.168.11.1 
+netsh interface ipv4 add neighbors 25 192.168.11.1 02-aa-bb-cc-dd-23
+
+tftpd64失敗 不知為何
+tftp -i 192.168.11.1 put D:\Desktop\wzrhpg450h-186\fw.enc
+tftp -i 192.168.11.1 put D:\Desktop\G450_FW\wzrhpg450h-pro-r30360\wzrhpg450h-pro-r30360.enc
+tftp -i 192.168.11.1 put D:\Desktop\G450_FW\wzrhpg450h-pro-v24sp2-20025a\wzrhpg450h-pro-v24sp2-20025a.enc
+tftp -i 192.168.11.1 put D:\Desktop\G450_FW\openwrt-ar71xx-generic-wzr-hp-g450h-squashfs-factory.bin
+(可用)tftp -i 192.168.11.1 put D:\Desktop\G450_FW\x-wrt-26.04-b202603272316-ath79-generic-buffalo_wzr-hp-g450h-squashfs-tftp.bin
+X-WRR預設帳密 root/admin
+arp -d
+---防火牆會擋
+
+
+mtd erase kernel
+非官方WRT命令列下 刪除現有open-wrt系統BF060000 將只能用TFTP燒錄
+
+https://forums.buffalotech.com/index.php?topic=15684.0
+
+-第一個版本的 dd-wrt ​​ftp://nfiniti1:wzr-hp-g450h@188.65.163.247/WZR-HP-G450H-pro_v24sp2-17140.enc
+-第二個版本的dd-wrt ​​ftp://nfiniti1:wzr-hp-g450h@188.65.163.247/WZR-HP-G450H-pro_v24sp2-18795.zip
+-最新版本的 dd-wrt ​​ftp://nfiniti1:wzr-hp-g450h@188.65.163.247/WZR-HP-G450H-pro_v24sp2-20025.zip
+-使用者友善版本 1.86
+-Openwrt http://downloads.openwrt.org/attitude_adjustment/12.09-rc1/ar71xx/generic/openwrt-ar71xx-generic-wzr-hp-g450h-squashfs-tftp.bin " target="_blank"> http://downloads.openwrt.org/attitude_adjustment/12.09-rc1/ar71xx/generic/openwrt-ar71xx-generic-wzr-hp-g450h-squashfs-tftp.bin
+
+解密韌體
+https://forum.wifihell.com/thread-66-1-1.html
+https://huhb.github.io/blog/2012/11/13/Buffalo-firmware/
+https://forum.dd-wrt.com/forum/viewtopic.php?p=897435&sid=79d7a047b31240067199e08e434f6dda
+https://scarygliders.net/2010/02/23/hacking-around-the-japanese-buffalo-wzr-hp-g300n/
+
+
+官方dd-wrt刷openwrt
+    cd /tmp
+    wget http://downloads.openwrt.org/attitude_adjustment/12.09/ar71xx/generic/openwrt-ar71xx-generic-wzr-hp-g450h-squashfs-sysupgrade.bin
+    mtd -r write openwrt-ar71xx-generic-wzr-hp-g450h-squashfs-sysupgrade.bin linux
+	
+我遇到了類似的情況，最終透過以下步驟成功地將我的 WZR-HP-G450H 從運行 OpenWrt Attitude Adjustment 的系統恢復到直接從 Buffalo 網站下載的加密版 DD-WRT：
+
+1. 從 Buffalo 的網站下載出廠預設的 DD-WRT 韌體。
+2. 使用 'dd' linux 指令從 'wzrhpg450h-pro-v24sp2-20025.enc' 檔案中刪除前 208 個位元組。
+3. 依照先前的貼文所述執行「buffalo-enc」來建立 DD-WRT 韌體的未加密版本。
+4. 使用標準的 OpenWRT「sysupgrade」流程更新至 DD-WRT 韌體。
+
+如果將來有人需要，我已經將未加密的 DD-WRT 韌體“wzrhpg450h-pro-v24sp2-20025.decrypted.bin”上傳到了 OneDrive，地址如下：http: //sdrv.ms/11qGrlG 
+
+Airstation Public header
+Recv fw image [11993092] bytes, now writing...
+
+flash-addr 0xBF060000 - 0xBFBDFFFF
+search sector 0xbf060000 - 0xbfbdffff
+BANK #1 (6 : 189)
+  000  PPPP.Poooooooooooooooooooooooooo
+  032  oooooooooooooooooooooooooooooooo
+  064  oooooooooooooooooooooooooooooooo
+  096  oooooooooooooooooooooooooooooooo
+  128  oooooooooooooooooooooooooooooooo
+  160  oooooooooooooooooooooooooooooo..
+  192  ................................
+  224  ................................
+BANK #2 (-1 : -1)
+  000  ................................
+  032  ................................
+  064  ................................
+  096  ................................
+  128  ................................
+  160  ................................
+  192  ................................
+  224  ................................
+
+HxD 刪除前 208 個位元組
+
+https://frickel.cloud/firmware/openwrt/-/blob/b2f19d3ef707c60c46a75a1fe2c38365474a5921/tools/firmware-utils/src/buffalo-enc.c
+
+https://github.com/musashino205/firmware-wintools
+
+firmware-wintools buffalo-enc -i <input file> -o <output file> -d [-k <key>] [-O <offset>] [-l]
+(成功)firmware-wintools buffalo-enc -i wzrhpg450h-pro-v24sp2-20025a.enc -o wzrhpg450h-pro-v24sp2-20025a.dec -d -O 0xd0
+(成功)firmware-wintools buffalo-enc -i wzrhpg450h-pro-v24sp2-20025a.enc -o wzrhpg450h-pro-v24sp2-20025a.dec -d
+
+(錯誤，WEB版韌體不可用TFTP方式燒)tftp -i 192.168.11.1 put D:\Desktop\G450_FW\wzrhpg450h-pro-v24sp2-20025a\wzrhpg450h-pro-v24sp2-20025a.dec
+
+要用OpenWrt內建TTL燒錄 官方解密後TTL 
