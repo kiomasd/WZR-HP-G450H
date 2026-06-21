@@ -12,7 +12,7 @@ BUFFALO WZR-HP-G450H Firmware 研究
 官方DD-WRT 30360版 [wzrhpg450h-pro-r30360.dec](wzrhpg450h-pro-r30360.dec) (24.8MB)<br>
 <br>
 <font color="red">注意：官方版韌體只能在官方介面下升級，Sysupgrade版韌體只能用Sysupgrade方式升級，</font>
-<font color="red">不可在官方介面下升級，兩者不可混用，避免變磚</font><br>
+<font color="red">不可在官方介面下升級，兩者不可混用，避免變磚</font>
 <br>
 ▼ 其他工具<br>
 [ddwrt2factory(dd刷回原廠韌體).exe](ddwrt2factory(dd刷回原廠韌體).exe) (0.2MB)<br>
