@@ -11,7 +11,7 @@ BUFFALO WZR-HP-G450H Firmware 研究
 官方DD-WRT 20025版 [wzrhpg450h-pro-v24sp2-20025a.dec](wzrhpg450h-pro-v24sp2-20025a.dec) (14.4MB)<br>
 官方DD-WRT 30360版 [wzrhpg450h-pro-r30360.dec](wzrhpg450h-pro-r30360.dec) (24.8MB)<br>
 <br>
-<font color="red">注意：官方版韌體只能在官方介面下升級，Sysupgrade版韌體只能用Sysupgrade方式升級，</font><br>
+<font color="red">注意：官方版韌體只能在官方介面下升級，Sysupgrade版韌體只能用Sysupgrade方式升級，</font>
 <font color="red">不可在官方介面下升級，兩者不可混用，避免變磚</font><br>
 <br>
 ▼ 其他工具<br>
