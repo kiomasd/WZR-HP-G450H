@@ -1,15 +1,17 @@
 # WZR-HP-G450H
 BUFFALO WZR-HP-G450H Firmware 研究
 
-▼官方WEB版韌體(可在官方WEB介面下升級)<br>
-BUFFALO版 [wzrhpg450h-186.enc](wzrhpg450h-186.enc) (21.4MB)<br>
-DD-WRT版 [wzrhpg450h-pro-v24sp2-20025a.enc](wzrhpg450h-pro-v24sp2-20025a.enc) (14.4MB)<br>
-DD-WRT版 [wzrhpg450h-pro-r30360.enc](wzrhpg450h-pro-r30360.enc) (24.8MB)<br>
+▼官方韌體 (僅限在官方後台介面下升級)<br>
+原廠 1.86版 [wzrhpg450h-186.enc](wzrhpg450h-186.enc) (21.4MB)<br>
+DD-WRT 20025版 [wzrhpg450h-pro-v24sp2-20025a.enc](wzrhpg450h-pro-v24sp2-20025a.enc) (14.4MB)<br>
+DD-WRT 30360版 [wzrhpg450h-pro-r30360.enc](wzrhpg450h-pro-r30360.enc) (24.8MB)<br>
 
-▼Sysupgrade韌體(可在TTL、社群版DD-WRT、OpenWRT、X-WRT介面下升級)<br>
-BUFFALO版 [wzrhpg450h-186.dec](wzrhpg450h-186.dec) (21.4MB)<br>
-DD-WRT版 [wzrhpg450h-pro-v24sp2-20025a.dec](wzrhpg450h-pro-v24sp2-20025a.dec) (14.4MB)<br>
-DD-WRT版 [wzrhpg450h-pro-r30360.dec](wzrhpg450h-pro-r30360.dec) (24.8MB)<br>
+▼Sysupgrade韌體 (僅限在TTL、社群版DD-WRT、OpenWRT、X-WRT後台介面下升級)<br>
+原廠 1.86版 [wzrhpg450h-186.dec](wzrhpg450h-186.dec) (21.4MB)<br>
+DD-WRT 20025版 [wzrhpg450h-pro-v24sp2-20025a.dec](wzrhpg450h-pro-v24sp2-20025a.dec) (14.4MB)<br>
+DD-WRT 30360版 [wzrhpg450h-pro-r30360.dec](wzrhpg450h-pro-r30360.dec) (24.8MB)<br>
+
+<font color="red">注意：官方韌體只能在官方介面下升級，Sysupgrade韌體只能用Sysupgrade方式升級，不可在官方介面下升級，兩者不可混用，避免變磚</font>
 
 ▼其他工具<br>
 [ddwrt2factory(dd刷回原廠韌體).exe](ddwrt2factory(dd刷回原廠韌體).exe) (0.2MB)<br>
